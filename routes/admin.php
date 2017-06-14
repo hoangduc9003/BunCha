@@ -9,6 +9,9 @@
         \Route::post('forgot-password', 'Admin\PasswordController@postForgotPassword');
         \Route::get('reset-password/{token}', 'Admin\PasswordController@getResetPassword');
         \Route::post('reset-password', 'Admin\PasswordController@postResetPassword');
+
+        //test
+        \Route::get('verifyemail/{token}', 'Admin\AdminUserController@verify');
     });
 
     \Route::group(['middleware' => ['admin.auth']], function () {
@@ -35,6 +38,15 @@
         \Route::resource('user-notifications', 'Admin\UserNotificationController');
         \Route::resource('admin-user-notifications', 'Admin\AdminUserNotificationController');
         \Route::resource('images', 'Admin\ImageController');
+
+        //New routes
+        \Route::resource('type-of-foods', 'Admin\TypeOfFoodController');
+
+        \Route::get('getCityList/{country}', 'Admin\AddressController@getCityList');
+        \Route::resource('addresses', 'Admin\AddressController');
+
+        //test
+//        \Route::get('verifyemail/{token}', 'Admin\AdminUserController@verify');
                 /* NEW ADMIN RESOURCE ROUTE */
     });
 });

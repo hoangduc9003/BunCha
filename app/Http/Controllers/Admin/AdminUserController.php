@@ -8,6 +8,9 @@ use App\Repositories\AdminUserRoleRepositoryInterface;
 use App\Http\Requests\PaginationRequest;
 use App\Http\Requests\Admin\AdminUserUpdateRequest;
 use Illuminate\Support\MessageBag;
+use Illuminate\Auth\Events\Registered;
+use App\Jobs\SendVerificationEmail;
+
 
 class AdminUserController extends Controller
 {
@@ -76,16 +79,36 @@ class AdminUserController extends Controller
             'password',
         ]);
 
+       $input['email_token'] = base64_encode($input['email']);
+
         $exist = $this->adminUserRepository->findByEmail($input['email']);
         if ( !empty($exist) ) {
             return redirect()->back()->withErrors(['error'=> 'This Email Is Already In Use'])->withInput();
         }
 
-        $adminUser = $this->adminUserRepository->create($input);
+        event(new Registered($adminUser = $this->adminUserRepository->create($input)));
         $this->adminUserRoleRepository->setAdminUserRoles($adminUser->id, $request->input('role', []));
+        $this->dispatch(new SendVerificationEmail($adminUser));
 
-        return redirect()->action('Admin\AdminUserController@show', [$adminUser->id])->with('message-success',
-            trans('admin.messages.general.create_success'));
+
+//        return redirect()->action('Admin\AdminUserController@show', [$adminUser->id])->with('message-success',
+//            trans('admin.messages.general.create_success'));
+        return view('emails.admin.verification_success');
+    }
+
+    /**
+     * Handle a registration request for the application.
+     *
+     * @param $token
+     * @return \Illuminate\Http\Response
+     */
+    public function verify($token)
+    {
+        $admin_user = $this->adminUserRepository->all()->where('email_token',$token)->first();
+        $admin_user->verified = 1;
+        if($admin_user->save()){
+            return view('emails.admin.email',['admin_user'=>$admin_user]);
+        }
     }
 
     public function update($id, AdminUserUpdateRequest $request)
@@ -99,6 +122,8 @@ class AdminUserController extends Controller
             'name',
             'email',
         ]);
+        $input['email_token'] = base64_encode($input['email']);
+
         $password = $request->get('password', '');
         if ( !empty($password) ) {
             $input['password'] = $password;

@@ -146,6 +146,20 @@ return [
                 'password' => 'Password',
             ],
         ],
+        'type-of-foods'   => [
+            'columns'  => [
+                'type_name' => 'Food Type',
+                'slug' => 'Slug',
+            ],
+        ],
+        'addresses'   => [
+            'columns'  => [
+                'address_detail' => 'Address_detail',
+                'country' => 'Country',
+                'city' => 'City',
+                'district' => 'District',
+            ],
+        ],
         /* NEW PAGE STRINGS */
     ],
     'roles'    => [

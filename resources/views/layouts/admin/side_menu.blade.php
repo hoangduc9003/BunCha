@@ -35,6 +35,8 @@
             <li @if( $menu=='user_notification') class="active" @endif ><a href="{!! URL::action('Admin\UserNotificationController@index') !!}"><i class="fa fa-bell"></i> <span>UserNotifications</span></a></li>
             <li @if( $menu=='admin_user_notification') class="active" @endif ><a href="{!! URL::action('Admin\AdminUserNotificationController@index') !!}"><i class="fa fa-bell-o"></i> <span>AdminUserNotifications</span></a></li>
             <li @if( $menu=='image') class="active" @endif ><a href="{!! URL::action('Admin\ImageController@index') !!}"><i class="fa fa-file-image-o"></i> <span>Images</span></a></li>
+            <li @if( $menu=='type_of_food') class="active" @endif ><a href="{!! action('Admin\TypeOfFoodController@index') !!}"><i class="fa fa-users"></i> <span>TypeOfFoods</span></a></li>
+            <li @if( $menu=='address') class="active" @endif ><a href="{!! action('Admin\AddressController@index') !!}"><i class="fa fa-users"></i> <span>Addresses</span></a></li>
             <!-- %%SIDEMENU%% -->
         </ul>
     </section>

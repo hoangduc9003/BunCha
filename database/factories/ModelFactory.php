@@ -112,4 +112,61 @@ $factory->define(App\Models\AdminUserNotification::class, function(Faker\Generat
     ];
 });
 
+$factory->define(App\Models\TypeOfFood::class, function (Faker\Generator $faker) {
+    return [
+        'id' => '',
+        'description' => '',
+        'slug' => '',
+    ];
+});
+
+$factory->define(App\Models\Address::class, function (Faker\Generator $faker) {
+    return [
+        'id' => '',
+        'address_detail' => '',
+        'country' => '',
+        'city' => '',
+        'district' => '',
+    ];
+});
+
+$factory->define(App\Models\Restaurant::class, function (Faker\Generator $faker) {
+    return [
+        'id' => '',
+        'res_name' => '',
+        'description' => '',
+        'opening_hour' => '',
+        'closing_hour' => '',
+        'smoking_area' => '',
+        'note' => '',
+        'slug' => '',
+    ];
+});
+
+$factory->define(App\Models\ResAddress::class, function (Faker\Generator $faker) {
+    return [
+        'id' => '',
+        'restaurant_id' => 0,
+        'address_id' => 0,
+    ];
+});
+
+$factory->define(App\Models\ResTypeOfFood::class, function (Faker\Generator $faker) {
+    return [
+        'id' => '',
+        'restaurant_id' => 0,
+        'food_type_id' => 0,
+    ];
+});
+
+$factory->define(App\Models\Address::class, function (Faker\Generator $faker) {
+    return [
+        'id' => '',
+        'address_detail' => '',
+        'country' => '',
+        'city' => '',
+        'district' => '',
+    ];
+});
+
 /* NEW MODEL FACTORY */

@@ -76,6 +76,16 @@ class RepositoryBindServiceProvider extends ServiceProvider
             \App\Repositories\Eloquent\AdminUserNotificationRepository::class
         );
 
+        $this->app->singleton(
+            \App\Repositories\TypeOfFoodRepositoryInterface::class,
+            \App\Repositories\Eloquent\TypeOfFoodRepository::class
+        );
+
+        $this->app->singleton(
+            \App\Repositories\AddressRepositoryInterface::class,
+            \App\Repositories\Eloquent\AddressRepository::class
+        );
+
         /* NEW BINDING */
     }
 }
